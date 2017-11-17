@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -13,10 +13,5 @@ class Company(models.Model):
                                   validators=[MaxValueValidator(2018), MinValueValidator(1800)])
     logo = models.ImageField(upload_to="static/images", blank=True, null=True)
     description = models.TextField()
-    workers = models.ManyToManyField(User, through= "Members")
 
-
-class Members(models.Model):
-    company = models.ForeignKey(Company)
-    worker = models.ForeignKey(User)
 

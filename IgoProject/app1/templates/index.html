@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <form action={% url "companies_list" %}>
+    <button type="submit">Companies</button>
+  </form>
+  <br>
+  <form action ={% url "users_list"  %}>
+    <button type="submit>"> Users</button>
+  </form>
+
+{% endblock %}

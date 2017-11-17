@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <div class="container">
+  <h2 class="title">Login</h2>
+  <div class="alert alert-primary" role="alert">
+  <div class="title">
+  You need to be logged to access the page
+  </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+
+  
+  </form>
+{% endblock %}

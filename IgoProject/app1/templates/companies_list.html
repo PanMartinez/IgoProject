@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        Company Name
+      </div>
+      <div class="col">
+        Country
+      </div>
+      <div class="col">
+        ID number
+      </div>
+      <div class="col">
+        Company details
+      </div>
+    </div>
+    {% for company in companies %}
+      <div class="row">
+        <div class="col">
+          {{ company.name }}<br>
+        </div>
+        <div class="col">
+          {{ company.country }}<br>
+        </div>
+        <div class="col">
+          {{ company.id }}
+        </div>
+        <div class="col">
+          <form action={% url "company_details" company.id %}>
+            <input type="submit" value="details"/></form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+<div class="container">
+  <form action={% url "add_company" %}>
+    <input type="submit" value="add new">
+  </form>
+</div>
+
+
+{% endblock %}

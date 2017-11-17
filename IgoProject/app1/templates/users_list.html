@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class=container>
+    <div class="row">
+      <div class="col">
+        Username
+      </div>
+      <div class="col">
+        Email Address
+      </div>
+      <div class="col">
+        ID number
+      </div>
+    </div>
+    {% for user in users %}
+      <div class="row">
+        <div class="col">
+          {{ user.username }}<br>
+        </div>
+        <div class="col">
+          {{ user.email }}<br>
+        </div>
+        <div class="col">
+          {{ user.id }}<br>
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+
+{% endblock %}
