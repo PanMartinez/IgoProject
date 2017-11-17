@@ -2,12 +2,13 @@
 
 {% block content %}
 
-  <form action={% url "companies_list" %}>
-    <button type="submit">Companies</button>
-  </form>
-  <br>
-  <form action ={% url "users_list"  %}>
-    <button type="submit>"> Users</button>
-  </form>
+<div class="container">
+  <div class="jumbotron">
+    <div class="title">
+    <h1 class="display-3">Welcome {{ request.user.username }} </h1>
+    <p class="lead">Chose Your destiny in menu above.</p>
+  </div>
+  </div>
+</div>
 
 {% endblock %}

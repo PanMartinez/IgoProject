@@ -9,6 +9,17 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
         integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="{% static 'js/app.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+          integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+          crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+          integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+          crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -18,26 +29,26 @@
   </h1>
 </div>
 <div class="container">
-    <ul class="nav nav-tabs nav-fill">
-      <li class="nav-item">
+  <ul class="nav nav-tabs nav-fill">
+    <li class="nav-item">
 
-        {% if request.user.is_authenticated %}
-          <a class = "nav-link" href="{% url 'companies_list' %}">Companies List</a>
-          {% else %}
-          <a class = "nav-link" href="{% url 'login' %}">Companies List</a>
+      {% if request.user.is_authenticated %}
+        <a class="nav-link" href="{% url 'companies_list' %}">Companies List</a>
+      {% else %}
+        <a class="nav-link" href="{% url 'login' %}">Companies List</a>
 
-        {% endif %}
-      </li>
-      <li class="nav-item">
-        {% if request.user.is_authenticated %}
-          <a class ="nav-link" href="{% url 'users_list' %}">Users List</a>
-        {% else %}
-          <a class ="nav-link" href="{% url 'login' %}">Users List</a>
-        {% endif %}
+      {% endif %}
+    </li>
+    <li class="nav-item">
+      {% if request.user.is_authenticated %}
+        <a class="nav-link" href="{% url 'users_list' %}">Users List</a>
+      {% else %}
+        <a class="nav-link" href="{% url 'login' %}">Users List</a>
+      {% endif %}
 
-      </li>
+    </li>
 
-    </ul>
+  </ul>
 </div>
 <br>
 <br>
@@ -46,37 +57,34 @@
 
   {% endblock %}
 </ul>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-        crossorigin="anonymous"></script>
 </body>
+<br>
+<br>
+<br>
+<br>
+<footer class="container">
+  <div class="row">
 
-<footer class ="container-fluid text-right">
-    <ul>
-        {% if request.user.is_authenticated %}
-    <div class="foot">
-          <form action={% url "logout" %}>
-      <button type="submit">Logout</button>
-    </form>
-     Logged as: {{ request.user.username }}</div>
+    {% if request.user.is_authenticated %}
+      <div class="row">
+        Logged as: {{ request.user.username }}
+      </div>
+      <div class="col">
+        <form action={% url "logout" %}>
+          <button type="submit">Logout</button>
+        </form>
+      </div>
 
+    {% endif %}
+    <div class="col">
+      Date: {{ date }} </div>
+    <div class="col">
+      Version: {{ version }}
+    </div>
 
+  </div>
 
-  {% endif %}
-
-  <p> Date: {{ date }} </p>
-  <p>Version: {{ version }} </p>
-    </ul>
-
-    </footer>
+</footer>
 
 
 </html>

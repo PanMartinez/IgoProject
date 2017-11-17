@@ -1,8 +1,20 @@
+body {
+    padding-top: 90px;
+}
+
 .title{
     text-align: center;
 }
 
-.login{
+.welcome{
     text-align: center;
-    border: groove;
+    border: inherit;
+    background-color: #003366;
+    color: #c4dce8;
 }
+
+.panel-login {
+	border-color: #ccc;
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);

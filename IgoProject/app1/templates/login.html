@@ -1,3 +1,5 @@
+
+
 {% extends 'base.html' %}
 
 {% block title %}Login{% endblock %}
@@ -7,15 +9,36 @@
   <h2 class="title">Login</h2>
   <div class="alert alert-primary" role="alert">
   <div class="title">
-  You need to be logged to access the page
+     <br>
   </div>
   </div>
-
+<div class="row">
+  <div class="col">
+    <div class ="panel-login">
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
-
-  
+    <div class="title">
+        <button type="submit">Login</button>
+      </div>
+    </div>
   </form>
+  </div>
+  <div class="col">
+    <div class="panel-login">
+      <br>
+      <div class="title">
+        Not a member yet?<br>
+        Signup for access the page
+      </div>
+      <br>
+      <div class="title">
+          <form action={% url "signup" %}>
+      <button type="submit">Signup</button>
+          </div>
+          </form>
+    </div>
+  </div>
+  </div>
+
 {% endblock %}
