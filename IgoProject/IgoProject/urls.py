@@ -19,23 +19,30 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
 from app1 import views as core_views
-from app1.views import StartView, CompaniesListView, CompanyDetailsView, AddCompanyView, UsersListView
 
-
+from app1.views import (
+    StartView,
+    CompaniesListView,
+    CompanyDetailsView,
+    AddCompanyView,
+    UsersListView,
+    CompanyUpdateView
+)
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+                  url(r'^admin/', include(admin.site.urls)),
 
-    # log urls
-    url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
-    url(r'^logout/$', auth_views.logout, {"next_page": "login"}, name='logout'),
-    url(r'^signup/$', core_views.signup, name='signup'),
+                  # log urls
+                  url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+                  url(r'^logout/$', auth_views.logout, {"next_page": "login"}, name='logout'),
+                  url(r'^signup/$', core_views.signup, name='signup'),
 
-    # CRM urls
-    url(r'^index', StartView.as_view(), name="home"),
-    url(r'^companies_list/', CompaniesListView.as_view(), name="companies_list"),
-    url(r'company_details/(?P<company_id>(\d)+)$', CompanyDetailsView.as_view(), name="company_details"),
-    url(r'add_company/', AddCompanyView.as_view(), name ="add_company"),
-    url(r'users_list/', UsersListView.as_view(), name="users_list")
+                  # CRM urls
+                  url(r'^index', StartView.as_view(), name="home"),
+                  url(r'^companies_list/', CompaniesListView.as_view(), name="companies_list"),
+                  url(r'company_details/(?P<company_id>(\d)+)$', CompanyDetailsView.as_view(), name="company_details"),
+                  url(r'add_company/', AddCompanyView.as_view(), name="add_company"),
+                  url(r'users_list/', UsersListView.as_view(), name="users_list"),
+                  url(r'^company/(?P<pk>(\d)+)/edit$', CompanyUpdateView.as_view(), name="company_update"),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

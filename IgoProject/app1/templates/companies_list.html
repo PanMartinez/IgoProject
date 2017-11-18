@@ -4,18 +4,27 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        Company Name
+        <div class="alert alert-primary" role="alert">
+          Company Name
+        </div>
       </div>
       <div class="col">
-        Country
+        <div class="alert alert-primary" role="alert">
+          Country
+        </div>
       </div>
       <div class="col">
-        ID number
+        <div class="alert alert-primary" role="alert">
+          ID number
+        </div>
       </div>
       <div class="col">
-        Company details
+        <div class="alert alert-primary" role="alert">
+          Company details
+        </div>
       </div>
     </div>
+    <br>
     {% for company in companies %}
       <div class="row">
         <div class="col">
@@ -34,11 +43,11 @@
       </div>
     {% endfor %}
   </div>
-<div class="container">
-  <form action={% url "add_company" %}>
-    <input type="submit" value="add new">
-  </form>
-</div>
+  <div class="container">
+    <form action={% url "add_company" %}>
+      <input type="submit" value="add new">
+    </form>
+  </div>
 
 
 {% endblock %}

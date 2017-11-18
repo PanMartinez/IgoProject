@@ -1,5 +1,5 @@
 from django.views import View
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -31,23 +31,30 @@ class StartView(View):
         return render(request, "index.html")
 
 
-class CompaniesListView(View):
+class CompaniesListView(LoginRequiredMixin, View):
     def get(self, request):
         return TemplateResponse(request, 'companies_list.html')
 
 
-class CompanyDetailsView(View):
+class CompanyDetailsView(LoginRequiredMixin, View):
     def get(self, request, company_id):
         company = Company.objects.get(id=company_id)
         return render(request, "company_details.html", {"company": company})
 
 
-class AddCompanyView(CreateView):
+class AddCompanyView(LoginRequiredMixin, CreateView):
     form_class = AddCompanyForm
     template_name = "form.html"
     success_url = reverse_lazy("companies_list")
 
 
-class UsersListView(View):
+class CompanyUpdateView( LoginRequiredMixin, UpdateView):
+    model = Company
+    fields = '__all__'
+    template_name = "form.html"
+    success_url = reverse_lazy("companies_list")
+
+
+class UsersListView( LoginRequiredMixin, View):
     def get(self, request):
         return TemplateResponse(request, "users_list.html")

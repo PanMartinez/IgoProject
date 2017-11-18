@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Rejestracja:</h2>
+  <div class="container">
+  <div class="formboard">
+  <h2>
+    <span class="badge badge-secondary">Signup:</span>
+  </h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}

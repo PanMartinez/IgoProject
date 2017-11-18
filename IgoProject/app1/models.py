@@ -3,8 +3,6 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-
-
 class Company(models.Model):
     name = models.CharField(max_length=64, verbose_name="name")
     country = models.CharField(max_length=64, verbose_name="country")
@@ -13,5 +11,3 @@ class Company(models.Model):
                                   validators=[MaxValueValidator(2018), MinValueValidator(1800)])
     logo = models.ImageField(upload_to="static/images", blank=True, null=True)
     description = models.TextField()
-
-

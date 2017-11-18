@@ -1,11 +1,32 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block content %}
+  <div class="container">
+    <div class="title">
+      <div class="row">
+        <div class="col">
 
-    <h2>{{ company.name }}</h2>
-    <li>{{ company.country}}</li>
-    <li>{{ company.year }}</li>
-    <li>{{ company.description }}</li>
-    <li>{{ company.logo }}</li>
+          <h2>
+            <span class="badge badge-secondary">{{ company.name }}</span>
+          </h2>
+          <p>
+            {{ company.country }}</p>
+          <p>{{ company.founded }}</p>
+        </div>
+        <div class="col">
+          {% if company.logo %}
+            <img src="{{ company.logo.url }}" width="250" height="250">
+          {% else %}
+            <p><img class="img-responsive img-thumbnail" src="{% static 'images/logo_not_found.png' %}"></p>
+          {% endif %}
+
+        </div>
+      </div>
+      <p>{{ company.description }}</p>
+    </div>
+    <form action={% url "company_update" company.id %}>
+      <input type="submit" value="edit"/></form>
+  </div>
 
 {% endblock %}
