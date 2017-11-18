@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class ="container">
-<div class="formboard">
-  <h2 class="title">
+  <div class="container">
+    <div class="formboard">
+      <h2 class="title">
     <span class="badge badge-secondary">
       New/Edit Company
     </span>
-  </h2>
-  <br>
-  <br>
-  <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-    <input type = "submit">
-  </form>
-</div>
+      </h2>
+      <br>
+      <br>
+      <form method="POST" class="form-inline" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit">
+      </form>
+
+    </div>
   </div>
 {% endblock %}

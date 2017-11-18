@@ -6,21 +6,20 @@ from django.contrib.auth.models import User
 def my_cp(request):
     ctx = {
         "date": datetime.date.today(),
-        'version' : "v. 1.0"
+        'version': "v. 1.0"
     }
     return ctx
 
 
 def companies(request):
     ctx = {
-        "companies" : Company.objects.all()
+        "companies": Company.objects.all()
     }
     return ctx
 
 
 def users(request):
     ctx = {
-        "users" : User.objects.all()
+        "users": User.objects.all()
     }
     return ctx
-

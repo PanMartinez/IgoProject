@@ -26,7 +26,7 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
-class StartView(View):
+class StartView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, "index.html")
 
@@ -48,13 +48,13 @@ class AddCompanyView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("companies_list")
 
 
-class CompanyUpdateView( LoginRequiredMixin, UpdateView):
+class CompanyUpdateView(LoginRequiredMixin, UpdateView):
     model = Company
     fields = '__all__'
     template_name = "form.html"
     success_url = reverse_lazy("companies_list")
 
 
-class UsersListView( LoginRequiredMixin, View):
+class UsersListView(LoginRequiredMixin, View):
     def get(self, request):
         return TemplateResponse(request, "users_list.html")
