@@ -3,5 +3,5 @@ from .models import Company
 
 
 @admin.register(Company)
-class SpiritAdmin(admin.ModelAdmin):
+class CompanyAdmin(admin.ModelAdmin):
     list_display = ("name", "country", "founded")

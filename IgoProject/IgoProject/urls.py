@@ -30,7 +30,7 @@ from app1.views import (
 )
 
 urlpatterns = [
-                  url(r'^admin/', include(admin.site.urls)),
+                  url(r'^admin/', include(admin.site.urls), name="admin"),
 
                   # log urls
                   url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),

@@ -11,3 +11,7 @@ class Company(models.Model):
                                   validators=[MaxValueValidator(2018), MinValueValidator(1800)])
     logo = models.ImageField(upload_to="static/images", blank=True, null=True)
     description = models.TextField()
+
+    class Meta:
+        verbose_name = "Company"
+        verbose_name_plural = "Companies"

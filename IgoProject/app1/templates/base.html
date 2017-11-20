@@ -72,12 +72,21 @@
         Logged as: {{ request.user.username }}
       </div>
       <div class="col">
-        <form action={% url "logout" %}>
+        <form action="{% url "logout" %}">
           <button type="submit">Logout</button>
         </form>
       </div>
-
     {% endif %}
+<!--
+  if request.user.is_superuser
+  <div class="col">
+    Go to admin page:
+    <form action="">
+      <button type ="submit">admin</button>
+      </form>
+  </div>
+  -->
+
     <div class="col">
       Date: {{ date }} </div>
     <div class="col">
