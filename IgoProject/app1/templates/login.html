@@ -11,8 +11,7 @@
       You have to be logged, to access the page
     </div>
   </div>
-  <div class="row">
-    <div class="col">
+  <div class="container">
       <div class="panel-login">
         <h2 class="title">
           <span class="badge badge-secondary">Login</span>
@@ -24,26 +23,6 @@
             <button type="submit">Login</button>
           </div>
       </div>
-      </form>
-    </div>
-    <div class="col">
-      <div class="panel-login">
-        <h2 class="title">
-          <span class="badge badge-secondary">Register</span>
-        </h2>
-        <br>
-        <div class="title">
-          Not a member yet?<br>
-        </div>
-        <br>
-        <br>
-        <div class="title">
-          <form action={% url "signup" %}>
-            <button type="submit">Signup</button>
-        </div>
-        </form>
-      </div>
-    </div>
   </div>
 
 {% endblock %}

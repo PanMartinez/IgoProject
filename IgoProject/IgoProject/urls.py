@@ -26,7 +26,8 @@ from app1.views import (
     CompanyDetailsView,
     AddCompanyView,
     UsersListView,
-    CompanyUpdateView
+    CompanyUpdateView,
+    CompanyDeleteView,
 )
 
 urlpatterns = [
@@ -35,7 +36,6 @@ urlpatterns = [
                   # log urls
                   url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
                   url(r'^logout/$', auth_views.logout, {"next_page": "login"}, name='logout'),
-                  url(r'^signup/$', core_views.signup, name='signup'),
 
                   # CRM urls
                   url(r'^index', StartView.as_view(), name="home"),
@@ -44,5 +44,6 @@ urlpatterns = [
                   url(r'add_company/', AddCompanyView.as_view(), name="add_company"),
                   url(r'users_list/', UsersListView.as_view(), name="users_list"),
                   url(r'^company/(?P<pk>(\d)+)/edit$', CompanyUpdateView.as_view(), name="company_update"),
+                  url(r'^company/(?P<pk>(\d)+)/delete$', CompanyDeleteView.as_view(), name="company_delete")
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

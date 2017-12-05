@@ -27,6 +27,8 @@
     </div>
     <form action={% url "company_update" company.id %}>
       <input type="submit" value="edit"/></form>
+    <form action={% url "company_delete" company.id %}>
+      <input type="submit" value="delete"/></form>
   </div>
 
 {% endblock %}

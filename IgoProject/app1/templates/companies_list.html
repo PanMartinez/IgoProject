@@ -1,53 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
+<div class="container">
     <div class="row">
-      <div class="col">
-        <div class="alert alert-primary" role="alert">
-          Company Name
+        <div class="col">
+            <div class="alert alert-primary" role="alert">
+                Company Name
+            </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="alert alert-primary" role="alert">
-          Country
+        <div class="col">
+            <div class="alert alert-primary" role="alert">
+                Country
+            </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="alert alert-primary" role="alert">
-          ID number
+        <div class="col">
+            <div class="alert alert-primary" role="alert">
+                ID number
+            </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="alert alert-primary" role="alert">
-          Company details
+        <div class="col">
+            <div class="alert alert-primary" role="alert">
+                Company details
+            </div>
         </div>
-      </div>
     </div>
     <br>
     {% for company in companies %}
-      <div class="row">
+    <div class="row">
         <div class="col">
-          {{ company.name }}<br>
+            {{ company.name }}<br>
         </div>
         <div class="col">
-          {{ company.country }}<br>
+            {{ company.country }}<br>
         </div>
         <div class="col">
-          {{ company.id }}
+            {{ company.id }}
         </div>
         <div class="col">
-          <form action={% url "company_details" company.id %}>
-            <input type="submit" value="details"/></form>
+            <a href="{% url "company_details" company.id %}" class="btn btn-primary btn-sm" role="button">details</a>
+            <a href="{% url "company_update" company.id %}" class="btn btn-primary btn-sm" role="button">edit</a>
+            <a href="{% url "company_delete" company.id %}" class="btn btn-primary btn-sm" role="button">delete</a>
+
         </div>
-      </div>
+    </div>
     {% endfor %}
-  </div>
-  <div class="container">
-    <form action={% url "add_company" %}>
-      <input type="submit" value="add new">
+</div>
+<div class="container">
+    <form action={% url
+    "add_company" %}>
+    <input type="submit" value="add new">
     </form>
-  </div>
+</div>
 
 
 {% endblock %}
