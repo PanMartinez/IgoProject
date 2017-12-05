@@ -1,6 +1,6 @@
-
-
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 
 {% block title %}Login{% endblock %}
 
@@ -21,8 +21,11 @@
           {{ form.as_p }}
           <div class="title">
             <button type="submit">Login</button>
+            <p class="message">Forgot password? <a href="{% url 'password_reset' %}">Send an email</a></p>
+        </form>
           </div>
       </div>
   </div>
+
 
 {% endblock %}

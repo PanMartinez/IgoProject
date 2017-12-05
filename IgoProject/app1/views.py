@@ -1,7 +1,7 @@
 from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.template.response import TemplateResponse
@@ -10,6 +10,7 @@ from .forms import AddCompanyForm
 
 
 # Create your views here.
+
 
 
 class StartView(LoginRequiredMixin, View):
