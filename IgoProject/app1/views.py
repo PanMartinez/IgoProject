@@ -27,6 +27,7 @@ class CompaniesListView(LoginRequiredMixin, View):
     Add of a new company is also possible.
     """
     def get(self, request):
+
         return TemplateResponse(request, 'companies_list.html')
 
 

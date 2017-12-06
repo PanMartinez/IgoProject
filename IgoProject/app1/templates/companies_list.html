@@ -1,49 +1,50 @@
 {% extends "base.html" %}
 
+{% block header %}
+        <script>
+        $(document).ready(function () {
+            $('table').DataTable({
+                "pagingType": "full_numbers",
+                "searching": false,
+                "lengthMenu": [5, 10, 15, 25, 50],
+                responsive: true
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="alert alert-primary" role="alert">
-                Company Name
-            </div>
-        </div>
-        <div class="col">
-            <div class="alert alert-primary" role="alert">
-                Country
-            </div>
-        </div>
-        <div class="col">
-            <div class="alert alert-primary" role="alert">
-                ID number
-            </div>
-        </div>
-        <div class="col">
-            <div class="alert alert-primary" role="alert">
-                Company details
-            </div>
-        </div>
-    </div>
-    <br>
-    {% for company in companies %}
-    <div class="row">
-        <div class="col">
-            {{ company.name }}<br>
-        </div>
-        <div class="col">
-            {{ company.country }}<br>
-        </div>
-        <div class="col">
-            {{ company.id }}
-        </div>
-        <div class="col">
-            <a href="{% url "company_details" company.id %}" class="btn btn-primary btn-sm" role="button">details</a>
+
+<div class ="container">
+<h2>Companies page</h2>
+
+    <table cellspacing="1" class="table table-striped table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Country</th>
+          <th scope="col">Year Founded</th>
+            <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+{% for company in companies %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ company.name }}</td>
+          <td> {{company.country}}</td>
+          <td> {{company.founded}}</td>
+            <td>
+                <a href="{% url "company_details" company.id %}" class="btn btn-primary btn-sm" role="button">details</a>
             <a href="{% url "company_update" company.id %}" class="btn btn-primary btn-sm" role="button">edit</a>
             <a href="{% url "company_delete" company.id %}" class="btn btn-primary btn-sm" role="button">delete</a>
-
-        </div>
-    </div>
-    {% endfor %}
+            </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div>
 </div>
 <div class="container">
     <form action={% url "add_company" %}> <input type="submit" value="add new">

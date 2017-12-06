@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_login.html' %}
 {% load crispy_forms_tags %}
 
 
@@ -8,20 +8,21 @@
   <div class="container">
   <div class="alert alert-primary" role="alert">
     <div class="title">
-      You have to be logged, to access the page
+      Welcome to IGO project page!
+        Log in to access
     </div>
   </div>
   <div class="container">
-      <div class="panel-login">
+          <div class="jumbotron">
         <h2 class="title">
           <span class="badge badge-secondary">Login</span>
         </h2>
-        <form method="post">
+        <form method="post" class="title">
           {% csrf_token %}
           {{ form.as_p }}
           <div class="title">
             <button type="submit">Login</button>
-            <p class="message">Forgot password? <a href="{% url 'password_reset' %}">Remenber me</a></p>
+            <p class="message">Forgot password? <a href="{% url 'password_reset' %}">Remind me</a></p>
         </form>
           </div>
       </div>
