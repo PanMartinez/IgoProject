@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
-from app1 import views as core_views
 
 from app1.views import (
     StartView,
@@ -27,8 +26,10 @@ from app1.views import (
     AddCompanyView,
     UsersListView,
     CompanyUpdateView,
-    CompanyDeleteView
+    CompanyDeleteView,
+    CreateCommentView
 )
+
 
 urlpatterns = [
                   url(r'^admin/', include(admin.site.urls), name="admin"),
@@ -49,10 +50,12 @@ urlpatterns = [
                   # CRM url
                   url(r'^index', StartView.as_view(), name="home"),
                   url(r'^companies_list/', CompaniesListView.as_view(), name="companies_list"),
-                  url(r'company_details/(?P<company_id>(\d)+)$', CompanyDetailsView.as_view(), name="company_details"),
+                  url(r'^company_details/(?P<pk>(\d)+)', CompanyDetailsView.as_view(), name='company_details'),
                   url(r'add_company/', AddCompanyView.as_view(), name="add_company"),
                   url(r'users_list/', UsersListView.as_view(), name="users_list"),
                   url(r'^company/(?P<pk>(\d)+)/edit$', CompanyUpdateView.as_view(), name="company_update"),
-                  url(r'^company/(?P<pk>(\d)+)/delete$', CompanyDeleteView.as_view(), name="company_delete")
+                  url(r'^company/(?P<pk>(\d)+)/delete$', CompanyDeleteView.as_view(), name="company_delete"),
+                  url(r'^add_comment/(?P<company_id>(\d)+)', CreateCommentView.as_view(), name='comment'),
+
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.template.response import TemplateResponse
 from .models import Company
-from .forms import AddCompanyForm
+from .forms import AddCompanyForm, CreateCommentForm
 
 
 # Create your views here.
@@ -31,13 +31,12 @@ class CompaniesListView(LoginRequiredMixin, View):
         return TemplateResponse(request, 'companies_list.html')
 
 
-class CompanyDetailsView(LoginRequiredMixin, View):
+class CompanyDetailsView(LoginRequiredMixin, DetailView):
     """
-    View of company details
+    View of company details with comment button on the bottom
     """
-    def get(self, request, company_id):
-        company = Company.objects.get(id=company_id)
-        return render(request, "company_details.html", {"company": company})
+    model = Company
+    template_name = 'company_details.html'
 
 
 class AddCompanyView(LoginRequiredMixin, CreateView):
@@ -71,3 +70,17 @@ class UsersListView(LoginRequiredMixin, View):
     """
     def get(self, request):
         return TemplateResponse(request, "users_list.html")
+
+
+class CreateCommentView(LoginRequiredMixin, CreateView):
+    form_class = CreateCommentForm
+    template_name = 'form.html'
+
+    def get_initial(self):
+        initials = super(CreateCommentView, self).get_initial()
+        initials['company_details'] = self.kwargs['company_id']
+        return initials
+
+    def get_success_url(self):
+        return reverse('company_details', kwargs={'pk': self.object.company.id})
+

@@ -1,6 +1,8 @@
 from django.db import models
-
 from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import timezone
+from django.contrib.auth.models import User
+
 
 
 class Company(models.Model):
@@ -15,4 +17,18 @@ class Company(models.Model):
     class Meta:
         verbose_name = "Company"
         verbose_name_plural = "Companies"
-        ordering = ["name", "country", "founded"]
+
+    def __str__(self):
+        return "{}".format(self.name)
+
+
+class Comment(models.Model):
+    content = models.TextField()
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
+    #pub_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return "{}".format(self.content)
+
+

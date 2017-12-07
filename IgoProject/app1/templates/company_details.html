@@ -25,6 +25,14 @@
       </div>
       <p>{{ company.description }}</p>
     </div>
+    <p>
+    <form method="GET" action='/add_comment/{{ company.id }}'><br><br>
+        <input type="submit" value="Add Comment">
+      <br>
+          <strong>Comments:</strong><br>
+    {{ company.comment_set.all|join:"<br>" }}
+    </form>
+    </p>
   </div>
 
 {% endblock %}

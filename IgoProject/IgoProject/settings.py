@@ -69,6 +69,7 @@ TEMPLATES = [
                 'app1.context_processors.companies',
                 'app1.context_processors.users',
                 'app1.context_processors.my_cp',
+                'app1.context_processors.comments',
             ],
         },
     },
