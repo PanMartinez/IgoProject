@@ -2,16 +2,23 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div>
+        <form class="form" method="post">
 
-  <form action="{% comment_form_target %}" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <input id="id_name" type="hidden" name="name" value="{{ user.username }}" />
+      <h2 class="title">
+    <span class="badge badge-secondary">
+      Comment {{ company.name }}
+    </span>
+      </h2>
+      <br>
+      <br>
 
-    {% else %}{{ field }}{% endifequal %}{% endifequal %}
-    {% endfor %}    
-        <input type="submit" name="submit" value="Post">
-  </form>
+        {% csrf_token %}
+        {{ form|crispy }}
 
+          <button type="submit" class="btn btn-primary">Submit</button>
 
+      </form>
+
+    </div>
 {% endblock %}

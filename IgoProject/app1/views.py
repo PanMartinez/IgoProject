@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.template.response import TemplateResponse
-from .models import Company
+from .models import Company, Comment
 from .forms import AddCompanyForm, CreateCommentForm
 
 
@@ -73,14 +73,16 @@ class UsersListView(LoginRequiredMixin, View):
 
 
 class CreateCommentView(LoginRequiredMixin, CreateView):
-    form_class = CreateCommentForm
-    template_name = 'form.html'
+    model = Comment
+    fields = ["content"]
+    template_name = 'form_comment.html'
 
-    def get_initial(self):
-        initials = super(CreateCommentView, self).get_initial()
-        initials['company_details'] = self.kwargs['company_id']
-        return initials
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.company = Company.objects.get(pk=self.kwargs["company_id"])
+        return super(CreateCommentView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('company_details', kwargs={'pk': self.object.company.id})
+        return reverse_lazy('company_details', kwargs={'pk': self.object.company.id})
+
 
