@@ -15,6 +15,6 @@ class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = '__all__'
-        widgets = {
-            'slainteet': forms.HiddenInput,
-}
+#         widgets = {
+#             'user': forms.HiddenInput,
+# }

@@ -35,7 +35,7 @@ urlpatterns = [
                   url(r'^admin/', include(admin.site.urls), name="admin"),
 
                   # log urls
-                  url(r'^login/$', auth_views.login, {'template_name': 'login.html'}, name='login'),
+                  url(r'^login/$', auth_views.login, {'template_name': 'login_form.html'}, name='login'),
                   url(r'^logout/$', auth_views.logout, {"next_page": "login"}, name='logout'),
                   url(r'^password_reset/$', auth_views.password_reset, {'template_name': 'password_reset_form.html'},
                       name='password_reset'),

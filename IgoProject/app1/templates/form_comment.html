@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <form action="{% comment_form_target %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <input id="id_name" type="hidden" name="name" value="{{ user.username }}" />
+
+    {% else %}{{ field }}{% endifequal %}{% endifequal %}
+    {% endfor %}    
+        <input type="submit" name="submit" value="Post">
+  </form>
+
+
+{% endblock %}
