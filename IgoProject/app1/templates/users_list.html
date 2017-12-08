@@ -1,39 +1,43 @@
 {% extends "base.html" %}
 
-{% block content %}
-  <div class=container>
-    <div class="row">
-      <div class="col">
-        <div class="alert alert-primary" role="alert">
-          Username
-        </div>
-      </div>
-      <div class="col">
-        <div class="alert alert-primary" role="alert">
-          Email Address
-        </div>
-      </div>
-      <div class="col">
-        <div class="alert alert-primary" role="alert">
-          ID number
-        </div>
-      </div>
-    </div>
-    <br>
-    {% for user in users %}
-      <div class="row">
-        <div class="col">
-          {{ user.username }}<br>
-        </div>
-        <div class="col">
-          {{ user.email }}<br>
-        </div>
-        <div class="col">
-          {{ user.id }}<br>
-        </div>
-      </div>
+{% block header %}
+        <script>
+        $(document).ready(function () {
+            $('table').DataTable({
+                "pagingType": "full_numbers",
+                "searching": false,
+                "lengthMenu": [5, 10, 15, 25, 50],
+                responsive: true
+            });
+        });
+    </script>
+{% endblock %}
 
-    {% endfor %}
-  </div>
+{% block content %}
+<div class ="container">
+<h2>Users List:</h2>
+
+    <table cellspacing="1" class="table table-striped table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">ID number</th>
+        </tr>
+      </thead>
+      <tbody>
+{% for user in users %}
+        <tr>
+          <th scope="row">{{ user.username }}</th>
+          <td> {{user.email}}</td>
+          <td> {{user.id}}</td>
+
+            </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div>
+
 
 {% endblock %}

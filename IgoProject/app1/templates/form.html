@@ -2,8 +2,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <div class="container">
-    <div class="formboard">
+<div>
+        <form class="form" method="post">
+
       <h2 class="title">
     <span class="badge badge-secondary">
       New/Edit Company
@@ -11,12 +12,13 @@
       </h2>
       <br>
       <br>
-      <form method="POST" class="form-inline" enctype="multipart/form-data">
+
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit">
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+
       </form>
 
     </div>
-  </div>
 {% endblock %}
