@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header">Add new company</div>
+      <div class="card-body">
+        <form>
+            {% csrf_token %}
+            {% for field in form %}
+
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="exampleInputName">Company name</label>
+                <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
+                  {{ field.label }}
+              </div>
+              <div class="col-md-6">
+                <label for="exampleInputLastName">Country</label>
+                <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
+                  {{ field.label }}
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Year founded</label>
+            <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+          {{ field }}
+          </div>
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <label for="exampleInputPassword1">logo</label>
+                <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
+                  {{ field }}
+              </div>
+              <div class="col-md-6">
+                <label for="exampleConfirmPassword">Description</label>
+                <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
+                  {{ field }}
+              </div>
+            </div>
+          </div>
+          <a class="btn btn-primary btn-block" href="login.html">Register</a>
+        </form>
+            {% endfor %}
+      </div>
+    </div>
+
+
+{% endblock %}

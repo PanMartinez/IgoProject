@@ -44,7 +44,7 @@ class AddCompanyView(LoginRequiredMixin, CreateView):
     New company view
     """
     form_class = AddCompanyForm
-    template_name = "form.html"
+    template_name = "form_company.html"
     success_url = reverse_lazy("companies_list")
 
 
