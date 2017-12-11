@@ -1,12 +1,12 @@
 from django.views import View
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.shortcuts import render
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.template.response import TemplateResponse
-from .models import Company, Comment
-from .forms import AddCompanyForm, CreateCommentForm
+from .models import Company, Comment, User
+from .forms import AddCompanyForm, AddUserForm
 
 
 # Create your views here.
@@ -62,6 +62,18 @@ class CompanyDeleteView(LoginRequiredMixin, DeleteView):
     model = Company
     template_name = "delete.html"
     success_url = reverse_lazy("companies_list")
+    success_message = ""
+
+    # def delete(self, request, *args, **kwargs):
+    #     messages.success(self.request, self.success_message % self.get_object().__name__)
+    #     return super(CompanyDeleteView, self).delete(request, *args, **kwargs)
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        name = self.object.name
+        request.session['name'] = name
+        message = 'Company' + request.session['name'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(CompanyDeleteView, self).delete(request, *args, **kwargs)
 
 
 class UsersListView(LoginRequiredMixin, View):
@@ -70,6 +82,31 @@ class UsersListView(LoginRequiredMixin, View):
     """
     def get(self, request):
         return TemplateResponse(request, "users_list.html")
+
+
+class AddUserView(LoginRequiredMixin, CreateView):
+    """
+    New user view
+    """
+    form_class = AddUserForm
+    template_name = "form.html"
+    success_url = reverse_lazy("users_list")
+
+
+class UpdateUserView(LoginRequiredMixin, UpdateView):
+    """
+    Users edit view
+    """
+    model = User
+    fields = '__all__'
+    template_name = "user_edit.html"
+    success_url = reverse_lazy("users_list")
+
+
+class DeleteUserView(LoginRequiredMixin, DeleteView):
+    model = User
+    template_name = "delete.html"
+    success_url = reverse_lazy("users_list")
 
 
 class CreateCommentView(LoginRequiredMixin, CreateView):

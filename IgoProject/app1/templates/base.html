@@ -112,7 +112,7 @@
           </form>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href ="{% url 'logout' %}">
+          <a class="nav-link" data-toggle="modal" data-target ="#exampleModal">
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
         </li>
       </ul>
@@ -160,6 +160,7 @@
         </div>
       </div>
 
+        {% include 'messages.html' %}
 
       {% block content %}
       {% endblock %}
@@ -195,10 +196,10 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Are You sure You want to logout?</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href ="{% url 'logout' %}">Logout</a>
           </div>
         </div>
       </div>

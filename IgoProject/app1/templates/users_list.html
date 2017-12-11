@@ -23,6 +23,8 @@
           <th scope="col">Name</th>
           <th scope="col">Email</th>
           <th scope="col">ID number</th>
+                        <th scope="col">Actions</th>
+
         </tr>
       </thead>
       <tbody>
@@ -31,6 +33,10 @@
           <th scope="row">{{ user.username }}</th>
           <td> {{user.email}}</td>
           <td> {{user.id}}</td>
+            <td>
+            <a href="{% url 'user_update' user.id %}" class="btn btn-primary btn-sm" role="button">edit</a>
+            <a href="{% url 'user_delete' user.id %}" class="btn btn-primary btn-sm" role="button">delete</a>
+            </td>
 
             </td>
         </tr>

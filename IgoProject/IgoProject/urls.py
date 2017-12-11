@@ -27,7 +27,11 @@ from app1.views import (
     UsersListView,
     CompanyUpdateView,
     CompanyDeleteView,
-    CreateCommentView
+    CreateCommentView,
+    AddUserView,
+    UpdateUserView,
+    DeleteUserView
+
 )
 
 
@@ -52,10 +56,15 @@ urlpatterns = [
                   url(r'^companies_list/', CompaniesListView.as_view(), name="companies_list"),
                   url(r'^company_details/(?P<pk>(\d)+)', CompanyDetailsView.as_view(), name='company_details'),
                   url(r'add_company/', AddCompanyView.as_view(), name="add_company"),
-                  url(r'users_list/', UsersListView.as_view(), name="users_list"),
                   url(r'^company/(?P<pk>(\d)+)/edit$', CompanyUpdateView.as_view(), name="company_update"),
                   url(r'^company/(?P<pk>(\d)+)/delete$', CompanyDeleteView.as_view(), name="company_delete"),
+                  url(r'users_list/', UsersListView.as_view(), name="users_list"),
+                  url(r'add_user/', AddUserView.as_view(), name="add_user"),
+                  url(r'^user/(?P<pk>(\d)+)/edit$', UpdateUserView.as_view(), name="user_update"),
+                  url(r'^user/(?P<pk>(\d)+)/delete$', DeleteUserView.as_view(), name="user_delete"),
+
                   url(r'^add_comment/(?P<company_id>(\d)+)', CreateCommentView.as_view(), name='comment'),
+
 
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
