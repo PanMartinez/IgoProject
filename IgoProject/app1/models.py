@@ -26,7 +26,7 @@ class Comment(models.Model):
     content = models.TextField()
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     user = models.ForeignKey(User)
-    #pub_date = models.DateTimeField(default=timezone.now)
+    pub_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "{}".format(self.content)

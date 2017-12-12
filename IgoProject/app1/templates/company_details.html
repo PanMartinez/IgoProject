@@ -2,37 +2,84 @@
 {% load staticfiles %}
 
 {% block content %}
-  <div class="container">
-    <div class="form">
-      <div class="row">
-        <div class="col">
+    <div class="container">
+        <div class="form">
+            <div class="row">
+                <div class="col">
 
-          <h2>
-            <span class="badge badge-secondary">{{ company.name }}</span>
-          </h2>
-          <p>
-            {{ company.country }}</p>
-          <p>{{ company.founded }}</p>
-        </div>
-        <div class="col">
-          {% if company.logo %}
-            <img src="{{ company.logo.url }}" width="250" height="250">
-          {% else %}
-            <p><img class="img-responsive img-thumbnail" src="{% static 'images/logo_not_found.png' %}"></p>
-          {% endif %}
+                    <h2>
+                        <span class="badge badge-secondary">{{ company.name }}</span>
+                    </h2>
+                    <p>
+                        {{ company.country }}</p>
+                    <p>{{ company.founded }}</p>
+                </div>
+                <div class="col">
+                    {% if company.logo %}
+                        <img src="{{ company.logo.url }}" width="250" height="250">
+                    {% else %}
+                        <img class="img-responsive img-thumbnail" src="{% static 'images/logo_not_found.png' %}">
+                    {% endif %}
 
+                </div>
+            </div>
+            <br>
+            <p>{{ company.description }}</p>
         </div>
-      </div>
-      <p>{{ company.description }}</p>
+        <p>
+        <form class='comment-list' method="GET" action='/add_comment/{{ company.id }}'><br><br>
+            <input type="submit" value="Add Comment">
+            <br>
+            <strong>Comments:</strong><br>
+            {{ company.comment_set.all|join:"<br>" }}
+        </form>
+        </p>
+
+        <div class="tab-pane" id="comments" role="tabpanel">
+
+            <form class="comment-form" method="get">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-form-label" for="formGroupExampleInput">Title</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title" name="title">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="formGroupExampleInput2">Comment</label>
+                    <textarea rows="5" type="text" class="form-control" id="formGroupExampleInput2"
+                              placeholder="Type your coment here ..." name="comm"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Submit comment">
+            </form>
+
+            {% for comment in comments %}
+
+                <div class="jumbotron comment">
+                    <div align="left">
+                        <div class="row">
+                            <div class="col">
+                                <a class="secondary">User: {{ comment.user }}</a>
+                            </div>
+                            <div class="col">
+                                <a class="secondary">Date: {{ comment.pub_date }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">{{ comment.content }}</div>
+                    <!-- deletebutton -->
+                    <div align="right">
+                        <form method="get">
+                            <button type="submit" align="left" class="btn btn-danger" name="delete_comment"
+                                    value="{{ comment.pk }}">Delete
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
-    <p>
-    <form method="GET" action='/add_comment/{{ company.id }}'><br><br>
-        <input type="submit" value="Add Comment">
-      <br>
-          <strong>Comments:</strong><br>
-    {{ company.comment_set.all|join:"<br>" }}
-    </form>
-    </p>
-  </div>
+    </div>
 
 {% endblock %}

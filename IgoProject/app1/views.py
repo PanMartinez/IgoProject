@@ -3,6 +3,7 @@ from django.views import View
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.shortcuts import render
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.template.response import TemplateResponse
@@ -13,9 +14,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
-
 # Create your views here.
-
 
 
 class StartView(LoginRequiredMixin, View):
@@ -44,16 +43,17 @@ class CompanyDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'company_details.html'
 
 
-class AddCompanyView(LoginRequiredMixin, CreateView):
+class AddCompanyView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     """
     New company view
     """
     form_class = AddCompanyForm
     template_name = "form_company.html"
     success_url = reverse_lazy("companies_list")
+    success_message = "%(name)s was created successfully"
 
 
-class CompanyUpdateView(LoginRequiredMixin, UpdateView):
+class CompanyUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     """
     Company edit view
     """
@@ -61,6 +61,7 @@ class CompanyUpdateView(LoginRequiredMixin, UpdateView):
     fields = '__all__'
     template_name = "form.html"
     success_url = reverse_lazy("companies_list")
+    success_message = "Company %(name)s successfully edited"
 
 
 class CompanyDeleteView(LoginRequiredMixin, DeleteView):
@@ -73,7 +74,7 @@ class CompanyDeleteView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         name = self.object.name
         request.session['name'] = name
-        message = 'Company' + request.session['name'] + ' deleted successfully'
+        message = 'Company ' + request.session['name'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(CompanyDeleteView, self).delete(request, *args, **kwargs)
 
@@ -86,7 +87,7 @@ class UsersListView(LoginRequiredMixin, View):
         return TemplateResponse(request, "users_list.html")
 
 
-class UpdateUserView(LoginRequiredMixin, UpdateView):
+class UpdateUserView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     """
     Users edit view
     """
@@ -94,6 +95,7 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
     fields = '__all__'
     template_name = "user_edit.html"
     success_url = reverse_lazy("users_list")
+    success_message = "User %(username)s successfully edited"
 
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
@@ -105,7 +107,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         name = self.object.username
         request.session['name'] = name
-        message = 'User' + request.session['name'] + ' deleted successfully'
+        message = 'User ' + request.session['name'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(DeleteUserView, self).delete(request, *args, **kwargs)
 

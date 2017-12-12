@@ -1,33 +1,54 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
 
-  {% extends "base.html" %}
-  {% load staticfiles %}
-  {% block js %}
-      {{ block.super }}
-  {% endblock %}
 
-  {% block title %}Edit profile{% endblock %}
-  {% block content %}
+{% block title %}Edit profile{% endblock %}
+{% block content %}
 
- 	<div class="container">
-    <section>
-      <h1>Edit profile:</h1>
-          <form method="post">
-            {% load widget_tweaks %}
-            {% csrf_token %}
-            <br />
-            <div>
-              <span class="editProfileInput">Username:</span>
-              <p>{% render_field form.username class+="form-control" %}</p>
-              <span class="editProfileInput">E-mail:</span>
-              <p>{% render_field form.email class+="form-control" %}</p>
-              <span class="editProfileInput">First name:</span>
-              <p>{% render_field form.first_name class+="form-control" %}</p>
-                <span class="editProfileInput">Last name:</span>
-              <p>{% render_field form.last_name class+="form-control" %}</p>
-            <button type="submit" class="btn btn-lg btn-success">Submit</button>
+    <div class="container">
+        <div class="card card-register mx-auto mt-5">
+            <div class="card-header">
+                Edit User
             </div>
-          </form>
-  </section>
-</div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label>First Name</label>
+                                {% render_field form.first_name class="form-control" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label>Second Name</label>
+                                {% render_field form.last_name class="form-control" %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        {% render_field form.username class="form-control"%}
+                    </div>
+                    <div class="form-group">
+                        <label>Email address</label>
+                        {% render_field form.email class="form-control"%}
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label>Password</label>
+                                {% render_field form.password1 class="form-control" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label>Confirm Password</label>
+                                {% render_field form.password2 id="exampleInputPassword1" type="password" %}
+                            </div>
+                        </div>
+            </div>
+                    <button class="btn btn-lg btn-success btn-block" type="submit">Submit</button>
+            </form>
+        </div>
+            
+    </div>
+    </div>
 
 {% endblock %}

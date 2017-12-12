@@ -36,3 +36,38 @@ body {
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
+    .nav .nav-tabs {
+        font-family: Arial;
+        color: blue;
+    }
+
+    /* comment style on comments page */
+
+    .comment{
+        background-color: #646464;
+        color: #ffffff;
+        /* Top Right Bottom Left */
+        padding: 4% 6% 5% 4%;
+        font-family: Arial;
+        margin: 10px;
+        border: 2px solid rgb(199, 199, 199);
+        /* round border */
+        border-radius: 6px;
+    }
+
+    .secondary {
+        background: none;
+        color: #d4e7ff;
+        padding-top: 8%;
+    }
+
+    .delete-form{
+        padding-top: 2%;
+        padding-left: 85%;
+    }
+
+    .comment-form{
+        margin: 10px;
+        padding-bottom: 30px;
+    }
