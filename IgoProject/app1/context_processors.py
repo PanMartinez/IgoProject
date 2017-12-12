@@ -24,6 +24,7 @@ def users(request):
     }
     return ctx
 
+
 def comments(request):
     ctx = {
         "comments": Comment.objects.all()

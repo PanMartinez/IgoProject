@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.shortcuts import render
@@ -6,7 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.template.response import TemplateResponse
 from .models import Company, Comment, User
-from .forms import AddCompanyForm, AddUserForm
+from .forms import AddCompanyForm, RegistrationForm
+
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 
 
 # Create your views here.
@@ -60,13 +65,10 @@ class CompanyUpdateView(LoginRequiredMixin, UpdateView):
 
 class CompanyDeleteView(LoginRequiredMixin, DeleteView):
     model = Company
-    template_name = "delete.html"
+    template_name = "company_delete.html"
     success_url = reverse_lazy("companies_list")
     success_message = ""
 
-    # def delete(self, request, *args, **kwargs):
-    #     messages.success(self.request, self.success_message % self.get_object().__name__)
-    #     return super(CompanyDeleteView, self).delete(request, *args, **kwargs)
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         name = self.object.name
@@ -84,15 +86,6 @@ class UsersListView(LoginRequiredMixin, View):
         return TemplateResponse(request, "users_list.html")
 
 
-class AddUserView(LoginRequiredMixin, CreateView):
-    """
-    New user view
-    """
-    form_class = AddUserForm
-    template_name = "form.html"
-    success_url = reverse_lazy("users_list")
-
-
 class UpdateUserView(LoginRequiredMixin, UpdateView):
     """
     Users edit view
@@ -105,8 +98,16 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
     model = User
-    template_name = "delete.html"
+    template_name = "user_delete.html"
     success_url = reverse_lazy("users_list")
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        name = self.object.username
+        request.session['name'] = name
+        message = 'User' + request.session['name'] + ' deleted successfully'
+        messages.success(self.request, message)
+        return super(DeleteUserView, self).delete(request, *args, **kwargs)
 
 
 class CreateCommentView(LoginRequiredMixin, CreateView):
@@ -123,3 +124,38 @@ class CreateCommentView(LoginRequiredMixin, CreateView):
         return reverse_lazy('company_details', kwargs={'pk': self.object.company.id})
 
 
+class DashboardView(LoginRequiredMixin, View):
+    """
+    View displaying  list of all added companies, with details, edit and delete buttons.
+    Add of a new company is also possible.
+    """
+    def get(self, request):
+
+        return TemplateResponse(request, 'dashboard.html')
+
+
+
+@csrf_protect
+@login_required
+@user_passes_test(lambda u: u.is_superuser) #check if the request.user is staff member if yes - allow him to register new users
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            messages.success(request, 'New User successfully added')
+            user = User.objects.create_user(
+            username=form.cleaned_data['username'],
+            first_name = form.cleaned_data['first_name'],
+            last_name = form.cleaned_data['last_name'],
+            password=form.cleaned_data['password1'],
+            email=form.cleaned_data['email']
+            )
+            return HttpResponseRedirect('users_list')
+    else:
+        form = RegistrationForm()
+
+    variables = {
+    'form': form
+    }
+
+    return render(request, 'user_registration.html', variables)

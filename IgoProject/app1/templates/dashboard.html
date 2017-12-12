@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="row">
+            <div class="col">
+                <div class="col-sm-10 mb-3">
+                    <div class="card text-white bg-primary o-hidden h-100">
+                        <div class="card-body">
+                            <div class="card-body-icon">
+                                <i class="fa fa-fw fa-users"></i>
+                            </div>
+                            <div class="mr-5"> {{ users.count }} Registered Users!</div>
+                        </div>
+                        {% if request.user.is_superuser %}
+
+                            <a class="card-footer text-white clearfix small z-1" href="{% url 'users_list' %}">
+                                <span class="float-left">View Users</span>
+                                <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+                            </a>
+                        {% else %}
+                            <a class="card-footer text-white clearfix small z-2">
+              <span class="float-left">
+                                  <i class="fa fa-angle-left"></i>
+              </span>
+                                <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col-sm-10 mb-3">
+
+                    <div class="card text-white bg-warning o-hidden h-100">
+                        <div class="card-body">
+                            <div class="card-body-icon">
+                                <i class="fa fa-fw fa-eercast"></i>
+                            </div>
+                            <div class="mr-5"> {{ companies.count }} Registered Companies!</div>
+                        </div>
+                        <a class="card-footer text-white clearfix small z-1" href="{% url 'companies_list' %}">
+                            <span class="float-left">View Companies</span>
+                            <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

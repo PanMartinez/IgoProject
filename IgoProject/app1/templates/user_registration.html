@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}User Registration{% endblock %}
+{% block head %}User Registration{% endblock %}
+{% block content %}
+
+<section>
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item"><a href="{% url 'users_list' %}">Users</a></li>
+            <li class="breadcrumb-item active">Register</li>
+        </ol>
+        <div class="col-lg-6 col-lg-offspan-3">
+            <h1>Register new user:</h1>
+            <form method="post" class="post_method" action=".">{% csrf_token %}
+                <table border="0">
+                    {{ form|crispy }}
+                        <button class="btn btn-lg btn-success" type="submit" value="Register">Register</button>
+                </table>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

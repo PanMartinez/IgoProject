@@ -30,7 +30,7 @@ SECRET_KEY = 'astj(l*(k@2l4n7xa9-2lfwnlvqy))!@d@%44k39#cadw5y21i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
