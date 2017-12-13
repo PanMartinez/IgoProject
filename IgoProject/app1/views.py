@@ -59,7 +59,7 @@ class CompanyUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     """
     model = Company
     fields = '__all__'
-    template_name = "form.html"
+    template_name = "company_edit.html"
     success_url = reverse_lazy("companies_list")
     success_message = "Company %(name)s successfully edited"
 
@@ -92,7 +92,11 @@ class UpdateUserView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     Users edit view
     """
     model = User
-    fields = '__all__'
+    fields = (
+        "username", "first_name", "last_name", "email", "is_staff", "is_superuser"cd 
+    )
+
+
     template_name = "user_edit.html"
     success_url = reverse_lazy("users_list")
     success_message = "User %(username)s successfully edited"
@@ -139,7 +143,7 @@ class DashboardView(LoginRequiredMixin, View):
 
 @csrf_protect
 @login_required
-@user_passes_test(lambda u: u.is_superuser) #check if the request.user is staff member if yes - allow him to register new users
+@user_passes_test(lambda u: u.is_superuser)
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -152,7 +156,7 @@ def register(request):
             password=form.cleaned_data['password1'],
             email=form.cleaned_data['email']
             )
-            return HttpResponseRedirect('users_list')
+            return HttpResponseRedirect('/users_list/')
     else:
         form = RegistrationForm()
 

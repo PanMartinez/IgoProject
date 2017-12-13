@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}Edit profile{% endblock %}
@@ -11,7 +12,8 @@
                 Edit User
             </div>
             <div class="card-body">
-                <form>
+                <form method="post" class="post_method">
+                    {% csrf_token %}
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
@@ -35,19 +37,19 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <label>Password</label>
-                                {% render_field form.password1 class="form-control" %}
+                                <label>Staff Status</label>
+                                {% render_field form.is_staff %}
                             </div>
-                            <div class="col-md-6">
-                                <label>Confirm Password</label>
-                                {% render_field form.password2 id="exampleInputPassword1" type="password" %}
+                                <div class="col-md-6">
+                                <label>Admin Status</label>
+                                {% render_field form.is_superuser %}
                             </div>
                         </div>
             </div>
                     <button class="btn btn-lg btn-success btn-block" type="submit">Submit</button>
             </form>
         </div>
-            
+
     </div>
     </div>
 

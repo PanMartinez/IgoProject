@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
 
 
 {% block content %}
 
+    <section>
     <div class="container">
         <div class="card card-register mx-auto mt-5">
             <div class="card-header">
-                Add New Company
+                Edit Company
             </div>
             <div class="card-body">
-              <form method="post" class="post_method" action=".">
+              <form method="post" class="post_method">
                     {% csrf_token %}
                   <div class="form-group">
                                 <label>Company Name</label>
@@ -39,11 +41,16 @@
                                 {% render_field form.description class="form-control" %}
                         </div>
                     </div>
-                    <button class="btn btn-lg btn-success btn-block" type="submit" value="Register">Add Company</button>
+                    <button class="btn btn-lg btn-success btn-block" type="submit">Apply Changes</button>
                 </form>
             </div>
 
         </div>
     </div>
+    </section>
+
+
+
 
 {% endblock %}
+
