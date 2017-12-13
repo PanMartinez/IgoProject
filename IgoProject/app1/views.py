@@ -1,14 +1,14 @@
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.template.response import TemplateResponse
 from .models import Company, Comment, User
-from .forms import AddCompanyForm, RegistrationForm
+from .forms import AddCompanyForm, RegistrationForm, AddCommentForm
 
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -41,6 +41,46 @@ class CompanyDetailsView(LoginRequiredMixin, DetailView):
     """
     model = Company
     template_name = 'company_details.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # context['comments'] = models.Comment.objects.all()
+    #     current_company = context['object']
+    #     nonordered_comments = current_company.comment_set.all()
+    #     context['comments'] = nonordered_comments.order_by(Coalesce('date', 'pk').desc())
+    #     return context
+    #
+    # def get(self, request, *args, **kwargs):
+    #     get = request.GET
+    #     if get and 'comm' in get and 'title' in get:
+    #         title = request.GET['title']
+    #         comm = request.GET['comm']
+    #         current_company = models.Company.objects.get(pk=kwargs['pk'])
+    #         comment = models.Comment(company=current_company, user=request.user, title=title, comment=comm)
+    #         comment.save()
+    #
+    #     if get and 'delete_comment' in get:
+    #         try:
+    #             current_comment = models.Comment.objects.get(pk=get['delete_comment'])
+    #             current_comment.delete()
+    #         except:
+    #             pass
+    #
+    #         return super().get(kwargs, *args, **kwargs)
+
+
+class CreateCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = ("title", "content")
+    template_name = 'form.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.company = Company.objects.get(pk=self.kwargs["company_id"])
+        return super(CreateCommentView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('company_details', kwargs={'pk': self.object.company.id})
 
 
 class AddCompanyView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -93,10 +133,8 @@ class UpdateUserView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     """
     model = User
     fields = (
-        "username", "first_name", "last_name", "email", "is_staff", "is_superuser"cd 
+        "username", "first_name", "last_name", "email", "is_staff", "is_superuser"
     )
-
-
     template_name = "user_edit.html"
     success_url = reverse_lazy("users_list")
     success_message = "User %(username)s successfully edited"
@@ -114,20 +152,6 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         message = 'User ' + request.session['name'] + ' deleted successfully'
         messages.success(self.request, message)
         return super(DeleteUserView, self).delete(request, *args, **kwargs)
-
-
-class CreateCommentView(LoginRequiredMixin, CreateView):
-    model = Comment
-    fields = ["content"]
-    template_name = 'form_comment.html'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.company = Company.objects.get(pk=self.kwargs["company_id"])
-        return super(CreateCommentView, self).form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('company_details', kwargs={'pk': self.object.company.id})
 
 
 class DashboardView(LoginRequiredMixin, View):

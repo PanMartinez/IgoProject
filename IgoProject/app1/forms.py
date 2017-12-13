@@ -1,12 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Company
-
-
-class AddCompanyForm(forms.ModelForm):
-    class Meta:
-        model = Company
-        fields = "__all__"
+from .models import Company, Comment
 
 
 class RegistrationForm(forms.Form):
@@ -43,4 +37,13 @@ class RegistrationForm(forms.Form):
         return self.cleaned_data
 
 
+class AddCompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = "__all__"
 
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("title", "content")

@@ -65,7 +65,7 @@ urlpatterns = [
                   url(r'^user/(?P<pk>(\d)+)/edit$', UpdateUserView.as_view(), name="user_update"),
                   url(r'^user/(?P<pk>(\d)+)/delete$', DeleteUserView.as_view(), name="user_delete"),
 
-                  url(r'^add_comment/(?P<company_id>(\d)+)', CreateCommentView.as_view(), name='comment'),
+                  url(r'^add_comment/(?P<company_id>(\d)+)', CreateCommentView.as_view(), name='add_comment'),
                   url(r'^dashboard/', DashboardView.as_view(), name="dashboard"),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

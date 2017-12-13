@@ -23,6 +23,7 @@ class Company(models.Model):
 
 
 class Comment(models.Model):
+    title = models.CharField(max_length=32, verbose_name="title", default=None)
     content = models.TextField()
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     user = models.ForeignKey(User)

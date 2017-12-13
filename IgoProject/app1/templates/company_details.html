@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
 {% block content %}
     <div class="container">
         <div class="form">
@@ -26,60 +25,48 @@
             <br>
             <p>{{ company.description }}</p>
         </div>
-        <p>
-        <form class='comment-list' method="GET" action='/add_comment/{{ company.id }}'><br><br>
-            <input type="submit" value="Add Comment">
-            <br>
-            <strong>Comments:</strong><br>
-            {{ company.comment_set.all|join:"<br>" }}
-        </form>
-        </p>
 
-        <div class="tab-pane" id="comments" role="tabpanel">
+        <a href="{% url 'add_comment' company.id %}" class="btn btn-lg btn-info btn-block" role="button">Add Comment</a>
 
-            <form class="comment-form" method="get">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="col-form-label" for="formGroupExampleInput">Title</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Title" name="title">
-                </div>
-                <div class="form-group">
-                    <label class="col-form-label" for="formGroupExampleInput2">Comment</label>
-                    <textarea rows="5" type="text" class="form-control" id="formGroupExampleInput2"
-                              placeholder="Type your coment here ..." name="comm"></textarea>
-                </div>
-                <input type="submit" class="btn btn-primary" value="Submit comment">
-            </form>
 
-            {% for comment in comments %}
+        <div class="container">
+
+            {% for comment in company.comment_set.all %}
 
                 <div class="jumbotron comment">
-                    <div align="left">
-                        <div class="row">
-                            <div class="col">
-                                <a class="secondary">User: {{ comment.user }}</a>
-                            </div>
-                            <div class="col">
-                                <a class="secondary">Date: {{ comment.pub_date }}</a>
-                            </div>
+                    <div class="row text-center card-header">
+                        <div class="col">
+                            <a>Title: {{ comment.title }}</a>
                         </div>
                     </div>
                     <br>
-                    <div class="row">{{ comment.content }}</div>
-                    <!-- deletebutton -->
-                    <div align="right">
-                        <form method="get">
-                            <button type="submit" align="left" class="btn btn-danger" name="delete_comment"
-                                    value="{{ comment.pk }}">Delete
-                            </button>
-                        </form>
-                    </div>
+                    <div class="row">
 
+                        <div class="col text-left">
+                            <a class="secondary">User: {{ comment.user }}</a>
+                        </div>
+                        <div class="col text-right">
+                            <a class="secondary">Date: {{ comment.pub_date }}</a>
+                        </div>
+                    </div>
+                    <div class="row well well-lg">
+                        <a>{{ comment.content }}</a>
+                    </div>
                 </div>
             {% endfor %}
-        </div>
 
+        </div>
+    <div class="container">
+        <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+  <div class="card-block">
+    <h3 class="card-title">Card Title</h3>
+      <div class="card card-inverse" style="background-color:skyblue;">
+    <p class="card-text">This text will be written on a grey background inside a Card.</p>
+      </div>
+  </div>
+</div>
     </div>
+
     </div>
 
 {% endblock %}
