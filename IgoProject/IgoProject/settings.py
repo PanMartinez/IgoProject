@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+
 from django.contrib.messages import constants as messages
 
+from . import local
 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
@@ -25,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'astj(l*(k@2l4n7xa9-2lfwnlvqy))!@d@%44k39#cadw5y21i'
+SECRET_KEY = local.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,7 +120,13 @@ MESSAGE_TAGS = {
 }
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = local.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = local.EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'gmailusername@gmail.com'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

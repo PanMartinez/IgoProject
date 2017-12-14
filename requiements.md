@@ -1,0 +1,10 @@
+Django==1.11
+django-bootstrap-breadcrumbs==0.8.2
+django-crispy-forms==1.7.0
+django-widget-tweaks==1.4.1
+mock==2.0.0
+olefile==0.44
+pbr==3.1.1
+Pillow==4.3.0
+pytz==2017.3
+six==1.11.0
