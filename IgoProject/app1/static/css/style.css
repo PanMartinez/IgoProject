@@ -71,3 +71,65 @@ body {
         margin: 10px;
         padding-bottom: 30px;
     }
+
+            .nav .nav-tabs {
+            font-family: Arial;
+            color: blue;
+        }
+
+
+        .comment {
+            background-color: #646464;
+            color: #ffffff;
+            /* Top Right Bottom Left */
+            padding: 4% 6% 5% 4%;
+            font-family: Arial;
+            margin: 10px;
+            border: 2px solid rgb(199, 199, 199);
+            /* round border */
+            border-radius: 6px;
+        }
+
+        .comment .modal {
+            color: rgb(44, 44, 44);
+        }
+
+        .secondary {
+            background: none;
+            color: #d4e7ff;
+            padding-top: 8%;
+        }
+
+        .delete-form {
+            padding-top: 2%;
+            padding-left: 85%;
+        }
+
+        .comment-form {
+            margin: 10px;
+            padding-bottom: 30px;
+        }
+
+        .mylogo {
+            width: 260px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            float: left;
+        }
+
+        .mycompany {
+            min-width: 400px;
+            min-height: 290px;
+        }
+
+
+        .cardEmployers {
+            width: 370px;
+            margin: 20px;
+
+            float: right;
+        }
+
+        .graybg {
+            background-color: lightgray;
+        }

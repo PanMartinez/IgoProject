@@ -17,6 +17,11 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 # Create your views here.
 
 
+class TestView(View):
+    def get(self,request):
+        return render(request, "company_details_new.html")
+
+
 class StartView(LoginRequiredMixin, View):
     """
     Starting View with welcome message

@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from app1.views import (
+    TestView,
     StartView,
     CompaniesListView,
     CompanyDetailsView,
@@ -51,6 +52,10 @@ urlpatterns = [
                       name='password_reset_confirm'),
                   url(r'^reset/done/$', auth_views.password_reset_complete,
                       {'template_name': 'password_reset_complete.html'}, name='password_reset_complete'),
+
+                  # TestView
+
+                  url(r'^test', TestView.as_view(), name="test"),
 
                   # CRM url
                   url(r'^index', StartView.as_view(), name="home"),

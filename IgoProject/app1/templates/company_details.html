@@ -1,79 +1,99 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load staticfiles %}
+
 
 {% block breadcrumbs %}
     {{ block.super }}
-    <a class ="breadcrumb-item" href="{% url 'companies_list' %}">Companies</a>
+    <a class="breadcrumb-item" href="{% url 'companies_list' %}">Companies</a>
     <a class="breadcrumb-item" href="{{ company.get_absolute_url }}">{{ company.name }}</a>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="form">
+
+    <div class="container-fluid">
+        <div class="tabs">
             <div class="row">
                 <div class="col">
-
-                    <h2>
-                        <span class="badge badge-secondary">{{ company.name }}</span>
-                    </h2>
-                    <p>
-                        {{ company.country }}</p>
-                    <p>{{ company.founded }}</p>
+                    <div class="col-sm-10 mb-3">
+                        <div class="card text-white bg-success o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fa fa-fw fa-info"></i>
+                                </div>
+                                <div class="mr-5">About Company</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#about">
+                                <span class="float-left">View Details</span>
+                                <span class="float-right">
+                        <i class="fa fa-angle-right"></i>
+                    </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col">
-                    {% if company.logo %}
-                        <img src="{{ company.logo.url }}" width="250" height="250">
-                    {% else %}
-                        <img class="img-responsive img-thumbnail" src="{% static 'images/logo_not_found.png' %}">
-                    {% endif %}
+                    <div class="col-sm-10 mb-3">
 
+                        <div class="card text-white bg-danger o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fa fa-fw fa-comment"></i>
+                                </div>
+                                <div class="mr-5">{{ comments_count }} Comments</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#comments">
+                                <span class="float-left">View Comments</span>
+                                <span class="float-right">
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <br>
-            <p>{{ company.description }}</p>
-        </div>
 
-        <a href="{% url 'add_comment' company.id %}" class="btn btn-lg btn-info btn-block" role="button">Add Comment</a>
-
-
-        <div class="container">
-
-            {% for comment in company.comment_set.all %}
-
-                <div class="jumbotron comment">
-                    <div class="row text-center card-header">
-                        <div class="col">
-                            <a>Title: {{ comment.title }}</a>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-
-                        <div class="col text-left">
-                            <a class="secondary">User: {{ comment.user }}</a>
-                        </div>
-                        <div class="col text-right">
-                            <a class="secondary">Date: {{ comment.pub_date }}</a>
-                        </div>
-                    </div>
-                    <div class="row well well-lg">
-                        <a>{{ comment.content }}</a>
-                    </div>
+            <!-- Panels content -->
+            <div class="tab-content">
+                <div id="about" class="tab active">
+                    {% include "includes/_company_info.html" %}
                 </div>
-            {% endfor %}
-
-        </div>
-    <div class="container">
-        <div class="card card-inverse" style="background-color: #333; border-color: #333;">
-  <div class="card-block">
-    <h3 class="card-title">Card Title</h3>
-      <div class="card card-inverse" style="background-color:skyblue;">
-    <p class="card-text">This text will be written on a grey background inside a Card.</p>
-      </div>
-  </div>
-</div>
+            <div id="comments" class="tab">
+                {% include "includes/_comments_list.html" %}
+            </div>
     </div>
 
-    </div>
+{% endblock %}
+
+
+{% block js %}
+    {% comment %} using for switching tabs {% endcomment %}
+    <script>
+        jQuery(document).ready(function () {
+            //first show only about
+            jQuery('.tabs ' + '#about').show().siblings().hide();
+            jQuery('a').on('click', function (e) {
+                var currentAttrValue = jQuery(this).attr('href');
+
+                // Show/Hide Tabs
+                jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+
+                // Change/remove current tab to active
+                jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+                e.preventDefault();
+                console.log('curr:' + currentAttrValue);
+            });
+            /*Need to activete all tables with class table*/
+            $('.table').DataTable();
+            //get id from button and pass it to message box
+            $('.deleteval').click(function (e) {
+                var at = $(this).attr('value');
+                $('.deletebutton').val(at)
+                //console.log('click delete'+at+' '+deletebutton);
+            });
+
+
+        });
+    </script>
 
 {% endblock %}
