@@ -4,6 +4,13 @@
 
 
 {% block title %}Edit profile{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <a class ="breadcrumb-item" href="{% url 'users_list' %}">Users</a>
+    <a class="breadcrumb-item" href="{{ user.get_absolute_url }}">{{ user.username }} / Edit</a>
+{% endblock %}
+
 {% block content %}
 
     <div class="container">

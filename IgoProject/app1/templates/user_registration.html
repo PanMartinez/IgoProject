@@ -2,6 +2,13 @@
 {% load widget_tweaks %}
 {% block title %}User Registration{% endblock %}
 {% block head %}User Registration{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <a class ="breadcrumb-item" href="{% url 'users_list' %}">Users</a>
+    <a class="breadcrumb-item">New User</a>
+{% endblock %}
+
 {% block content %}
 
     <div class="container">

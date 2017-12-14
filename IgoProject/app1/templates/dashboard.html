@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %}
+    {{ block.super }}
+    <a class ="breadcrumb-item" href="{% url 'dashboard' %}">Dashboard</a>
+{% endblock %}
+
 {% block content %}
 
     <div class="row">

@@ -2,7 +2,12 @@
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
 
-
+{% block breadcrumbs %}
+    {{ block.super }}
+    <a class ="breadcrumb-item" href="{% url 'companies_list' %}">Companies</a>
+    <a class="breadcrumb-item" href="{{ company.get_absolute_url }}">{{ company.name }}</a>
+    <a class="breadcrumb-item">Edit</a>
+{% endblock %}
 
 {% block content %}
 

@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 
-
+{% block breadcrumbs %}
+    {{ block.super }}
+    <a class ="breadcrumb-item" href="{% url 'companies_list' %}">Companies</a>
+    <a class="breadcrumb-item">New Company</a>
+{% endblock %}
 
 {% block content %}
 

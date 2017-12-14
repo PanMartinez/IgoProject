@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
 
 <html lang="en">
 
@@ -52,11 +53,11 @@
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Dashboard">
-          <a class="nav-link" href="{% url 'dashboard' %}">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Dashboard</span>
-          </a>
-        </li>
+                <a class="nav-link" href="{% url 'dashboard' %}">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Dashboard</span>
+                </a>
+            </li>
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Companies">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCompanies"
@@ -73,23 +74,23 @@
                     </li>
                 </ul>
             </li>
-{% if request.user.is_superuser %}
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
+            {% if request.user.is_superuser %}
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUsers"
                    data-parent="#exampleAccordion">
                     <i class="fa fa-users"></i>
                     <span class="nav-link-text">Users</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseUsers">
-                    <li>
-                        <a href="{% url 'users_list' %}">Users List</a>
-                    </li>
+                <li>
+                    <a href="{% url 'users_list' %}">Users List</a>
+                </li>
 
-                        <li>
-                            <a href="{% url 'register' %}">Add New</a>
-                        </li>
-                    {% endif %}
-                </ul>
+                <li>
+                    <a href="{% url 'register' %}">Add New</a>
+                </li>
+            {% endif %}
+            </ul>
             </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">
@@ -122,8 +123,18 @@
 <div class="content-wrapper">
     <div class="container-fluid">
 
+
+            <nav class="breadcrumb">
+                 {% block breadcrumbs %}
+     <a class ="breadcrumb-item" href="{% url 'home' %}">Home</a>
+
+                     {% endblock %}
+            </nav>
+
+
         {% include 'messages.html' %}
         {% block content %}
+            {% render_breadcrumbs %}
         {% endblock %}
 
     </div>
