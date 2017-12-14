@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 def my_cp(request):
     ctx = {
         "date": datetime.date.today(),
-        'version': "v. 1.1"
+        'version': "v. 1.3"
     }
     return ctx
 

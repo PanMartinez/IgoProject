@@ -8,11 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.template.response import TemplateResponse
 from .models import Company, Comment, User
-from .forms import AddCompanyForm, RegistrationForm, AddCommentForm
+from .forms import AddCompanyForm, RegistrationForm
+from django.db.models.functions import Coalesce
+
 
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required, user_passes_test
 
+import app1.models as models
 
 # Create your views here.
 
@@ -47,31 +50,23 @@ class CompanyDetailsView(LoginRequiredMixin, DetailView):
     model = Company
     template_name = 'company_details.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # context['comments'] = models.Comment.objects.all()
-    #     current_company = context['object']
-    #     nonordered_comments = current_company.comment_set.all()
-    #     context['comments'] = nonordered_comments.order_by(Coalesce('date', 'pk').desc())
-    #     return context
-    #
-    # def get(self, request, *args, **kwargs):
-    #     get = request.GET
-    #     if get and 'comm' in get and 'title' in get:
-    #         title = request.GET['title']
-    #         comm = request.GET['comm']
-    #         current_company = models.Company.objects.get(pk=kwargs['pk'])
-    #         comment = models.Comment(company=current_company, user=request.user, title=title, comment=comm)
-    #         comment.save()
-    #
-    #     if get and 'delete_comment' in get:
-    #         try:
-    #             current_comment = models.Comment.objects.get(pk=get['delete_comment'])
-    #             current_comment.delete()
-    #         except:
-    #             pass
-    #
-    #         return super().get(kwargs, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_company = context['object']
+        all_comments = current_company.comment_set.all()
+        context['comments'] = all_comments.order_by(Coalesce('pub_date', 'pk').desc())
+        return context
+
+    def get(self, request, *args, **kwargs):
+        get = request.GET
+        if get and 'content' in get and 'title' in get:
+            title = request.GET['title']
+            content = request.GET['content']
+            current_company = models.Company.objects.get(pk=kwargs['pk'])
+            comment = models.Comment(company=current_company, user=request.user, title=title, content=content)
+            comment.save()
+
+        return super().get(kwargs, *args, **kwargs)
 
 
 class CreateCommentView(LoginRequiredMixin, CreateView):
